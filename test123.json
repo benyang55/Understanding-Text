@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "symbolic-bit-257117",
+  "private_key_id": "21cbc1be1c5776877dfb404170deae203fe596bd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCQuLTM4v68M+ol\nXYyvwXA1VylI8SeAItb8Og5ZDZ6S2/5V7jux1mfGxRTlr/QBTd4pVG+BTfaEUVkZ\nxxc6gbSPC7pMN0/um07Tm8j2rxTYpDaUAFElRoTZa11xLKNyRgvqiAxRAKlido7o\nvIGLPQFt9NUWL7AkiOL0farhQ5nlsMR7Rq/FWG+jdztaFZoOw8NBLkLyA3VMejfx\nSyqaB6OodradaZVG6a6JELNSYlvmiMuj8FizlY5/kFXv9zmXnVghGPYZL8ePLN0q\nWi+ObijDzbP3kHUjcDJgv827jM05i/AT26DN7unoPtXOFaekSAIXFm4TBeFlP3uU\nLYrfzsaBAgMBAAECggEABMjQdF4URxdNyDy0ohpaae8G3sIXONeeBSJrt0K5oXgL\nq15YA5/3mBULpPDJV7Ix9CqWEZ+o1NTGJfGkqVLgq+J6vxqMhlJE277QmOQuo59h\nLQkqJZn0WiZAJXXQ9P4PFoq3IoXrs6VBAf16aGakyZRwp3492+VZIHVXnQEhwTvH\nMUVasAmxZF2c+jKNCMKVuVNDdfMDiBk1W2mVdBHLDXdtuPNNejFHWEcb/QIetwTo\n40wzBgxm+kuc8egTEJ5npg5kdUrFIzRnNuV2yvUwi5B25p3JEMKjRnG1JTxNhv9V\ncfzjG6oqlY3NEpmRDZksMrOJPTCBznvLDeAqqhbyYQKBgQDMSrQVAGyEAllh3Avb\n0KofrQiu8kF4wa/2dcdgu1W5ex7ScO1Uyf3X7+ylD+hyRvodXGIpxa4erjlkf5J7\nc3CFQK10GludJ9yBPQ5GyzJD933BC1bgAMp4doxGLqmBFuem/IYn7mmHpjRz95NU\n3wOcvXS44qiUS9sWTH9aClRakQKBgQC1WhWSHL2NbCcKPUU43dzZe7gw2w77c2Gt\nmIdz1YnNFH0LOVEtgn0XkAiRVwmQZiIuHV0FnobTiG0zsVj5jQ6WprIiSC0/uA3U\n/J73JIIQOFIUcKQjTSFIpwvc3aOQv6Do+jpq+AkZNiKW17fu8E7zW/AF1Vckiw+z\n6GBObmdE8QKBgGkT346R2j8IKktQcHUO3gJO8RFzH8Pp9AUTzYpusQgnUNIzLY+Y\nGc3w5Up9ZTUqVsm1U/Ribk3vlSuhBooi9XREsTLvv8GU2DFNY0N8jo0xBmi92WB8\nZ6gQadRLefog+uQELUjqszMHhSFE7W4RC32aYSgbxVQJtFXC4RpCB+NRAoGABvWd\nDE1kDNBQszjktij1d7ciu2U8rvOflPzcfdp8/kzB+7NIZTmzuTrCyWkQqeTxfNmN\nn1CVFfsPTcOJiZIbNDbTcTNZ4S8cAMdtBkj1YM/4fmZQNjaYh2Q5tVEgHMbt0uL/\naOl51+jW7Pj8SwQX04j8rgyg2nsnsBzDzV65QdECgYAXuyg0BFTq/apUZ1Nv1XoX\nstU1Wg0L1TGUhaqUzyRaPjIfqpag7ToW0OihfmZNpo9SUgRwnC4RD4bb/JRHCPEu\n4rSzyxBPXlxtAPXiCD1ohApD9oe2RkiZ1bdzpVHmLMj4fi+F43xuUcEIwAwAPV8O\n00NICft/3E6e7VTmxjNyvQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "benjamin-yang@symbolic-bit-257117.iam.gserviceaccount.com",
+  "client_id": "110290965264900261134",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/benjamin-yang%40symbolic-bit-257117.iam.gserviceaccount.com"
+}

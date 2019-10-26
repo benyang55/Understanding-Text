@@ -4,12 +4,11 @@ import os
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
-#GOOGLE_APPLICATION_CREDENTIALS = /Users/benjaminyang/Desktop/CalHacks/My/Project/35981-21cbc1be1c57.json
 # Instantiates a client
 client = vision.ImageAnnotatorClient()
 
 # The name of the image file to annotate
-file_name = os.path.abspath('testimage2.jpg')
+file_name = os.path.abspath('testimage1.png')
 
 # Loads the image into memory
 with io.open(file_name, 'rb') as image_file:
@@ -31,7 +30,9 @@ with io.open(file_name, 'rb') as image_file:
 image = types.Image(content=content)
 response = client.document_text_detection(image=image)
 document = response.full_text_annotation
-
-return document.text
-
 #print(document.text)
+output = document.text
+
+file = open("output.txt","w")
+file.write(output)
+file.close()
