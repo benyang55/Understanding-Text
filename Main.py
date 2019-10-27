@@ -7,10 +7,9 @@ import sys
 
 def Main():
 	query = sys.argv[1]
-	print(query)
-   	
+
 	reviews = grabReviews(scrape(findQuery(query)))
-	
+
 	words, sents = preprocess_text(reviews)
 	
 	ldamodel, worddic = create_topic_model(words)
@@ -18,12 +17,16 @@ def Main():
 	keywords = extract_keywords(ldamodel, worddic)
 	
 	sentencestocheck = find_keyword_contexts(sents, keywords)
-
-	print(sentencestocheck)
 	
 	finalsentences = sentimentcalculator(sentencestocheck, reviews)
+
+	concatenated = ""
+	for sentence in finalsentences:
+		concatenated += sentence + " "
 	
-	print(finalsentence)
+	print(concatenated)
+
+	return concatenated
 
     # textprocessed = textprocessor()
 
