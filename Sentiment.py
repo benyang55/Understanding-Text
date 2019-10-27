@@ -11,35 +11,27 @@ dataset = [
     "VADER is smart, handsome, and funny!"
 ]
 
+sentences = ['These are great but not much better then gen1', 'Poor quality microphone',
+'These AirPods are amazing they automatically play audio as soon as you put them in your ears and pause when you take them out',
+'Everyone is posting that there isn’t a difference between these and the 1st gen','Also, if you opt for wireless charging, buy the case with the gen 2 AirPods and you’ll save a few dollars' ]
 
-def sentimentcalculator():
+def sentimentcalculator(sentences, reviews):
     sent = pd.read_csv('vader_lexicon.txt', sep = '\t', header = None, names = ['polarity', 'weight', 'valence'])
     sent = sent.drop('weight', axis = 1).drop('valence', axis =1 )
     #needs to be converted to csv format later
 
-    #print(sent.loc['faulty'])
-    data = open('output.txt', 'r').read()
-
-    data = data.lower()
-
-    #print(data)
-
     #ALL NEEDS TO BE MODIFIED WHEN GET THE ACTUAL TEXT FILE WITH COMMENTS
-    testdata = pd.DataFrame(dataset, columns = ['text'])
+    testdata = pd.DataFrame(reviews, columns = ['text'])
     testdata['text'] = testdata['text'].str.lower()
     testdata['id'] = list(range(len(testdata)))
-    testdatasplit = pd.DataFrame(columns = ['id', 'text'])
-    for i in range(len(testdata)):
-
-        sentences = testdata.loc[i, 'text'].split(".")
-        for x in sentences:
+    testdatasplit = pd.DataFrame(sentences, columns = ['text'])
+    '''#for i in range(len(testdata)):
+        #sentences = testdata.loc[i, 'text'].split(".")
+        #for x in sentences:
             if re.match(x, '\s'):
                 continue
 
-            testdatasplit = testdatasplit.append({'id': i, 'text': x}, ignore_index = True)
-
-    #for sentence by sentence
-    #testdatasplit = testdatasplit.set_index('id')
+            testdatasplit = testdatasplit.append({'id': i, 'text': x}, ignore_index = True)'''
 
     temp = testdatasplit['text'].str.split(expand = True).stack().reset_index(level = 1)
 
@@ -51,7 +43,6 @@ def sentimentcalculator():
     merged = merged.drop(['num'], axis = 1)
 
     testdatasplit = testdatasplit.join(merged)
-
     #for the whole thing
 
     temp = testdata['text'].str.split(expand = True).stack().reset_index(level = 1)
@@ -67,6 +58,7 @@ def sentimentcalculator():
 
     #top 3 negative sentences
 
+
     #print(testdatasplit.columns)
     negativetable = testdatasplit.sort_values(by = 'polarity', ascending = True)
     negativevals = []
@@ -75,19 +67,28 @@ def sentimentcalculator():
     negativevals.append(negativetable.iloc[2]['text'])
 
 
-
+    #print(negativevals)
     #top 3 positive after checking for overall score
     positivetable = testdatasplit.sort_values(by = 'polarity', ascending = False)
     positivevals = []
     #print(positivetable)
     for i in range(len(positivetable)):
-        idnum = positivetable.iloc[i]['id']
-        if testdata.loc[idnum, 'polarity'] >0:
-            positivevals.append(positivetable.iloc[i]['text'])
-        if len(positivevals) == 3:
-            break;
-    negativevals.append(positivevals)
+        #idnum = positivetable.iloc[i]['id']
+        text = positivetable.iloc[i]['text']
+        text = text.lower()
+        #print(text)
+        if len(positivevals) == 3 or i == len(positivetable):
+            break
+        if testdata[testdata['text'].str.contains(text)]['polarity'].iloc[0] > 0:
+            positivevals.append(text)
+
+        #print(testdata[testdata['text'].str.contains(text)]['polarity'].iloc[i])
+        #print(testdata['text'])
+
+    #print(positivevals)
+    negativevals = negativevals + (positivevals)
+    #print(negativevals)
     return negativevals
 
 
-sentimentcalculator()
+sentimentcalculator(sentences, dataset)
