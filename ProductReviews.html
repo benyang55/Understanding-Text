@@ -27,7 +27,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <div class="w3-center w3-padding-16">Amazon Product Reviews</div>
   </div>
 </div>
-  
+
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
@@ -63,23 +63,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
   </div>
-  
+
   <hr id="product-search">
 
-  <!-- Product Search Section -->
-  <div class="w3-container w3-padding-16 w3-center">  
+  <!-- Product Search Section onclick="runSearch(document.getElementById('searchEntry').value)"-->
+  <div class="w3-container w3-padding-16 w3-center">
     <h4>Search For A Product</h4><br>
     <div class="w3-padding-small">
       <input type="text" class="w3-row-padding w3-center" id="searchEntry" placeholder="Search here...">
-      <button type="button" onclick="runSearch(document.getElementById('searchEntry').value)">Find Product</button>
+      <button type="button" onclick= runSearch() >Find Product</button>
     </div>
   </div>
 
 
   <hr id="about">
-  
+
   <!-- About Section -->
-  <div class="w3-container w3-padding-32 w3-center">  
+  <div class="w3-container w3-padding-32 w3-center">
     <h3>About Me, The Food Man</h3><br>
     <img src="/w3images/chef.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
     <div class="w3-padding-small">
@@ -97,7 +97,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
     </div>
-  
+
     <div class="w3-third">
       <h3>BLOG POSTS</h3>
       <ul class="w3-ul w3-hoverable">
@@ -110,7 +110,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
           <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
           <span class="w3-large">Ipsum</span><br>
           <span>Praes tinci sed</span>
-        </li> 
+        </li>
       </ul>
     </div>
 
@@ -129,12 +129,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <!-- End page content -->
 </div>
 
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script>
 // Script to open and close sidebar
+
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
 }
- 
+
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
 }
@@ -142,7 +144,7 @@ function w3_close() {
 // Function to run python script for query
 function runSearch(query){
     $.ajax({
-      url: "textProcessing.py",
+      url: "Main.py",
      context: document.body
     }).done(function() {
      alert('finished python script');;

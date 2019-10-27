@@ -71,8 +71,11 @@ def sentimentcalculator(sentences, reviews):
     #top 3 positive after checking for overall score
     positivetable = testdatasplit.sort_values(by = 'polarity', ascending = False)
     positivevals = []
+    positivevals.append(positivetable.iloc[0]['text'])
+    positivevals.append(positivetable.iloc[1]['text'])
+    positivevals.append(positivetable.iloc[2]['text'])
     #print(positivetable)
-    for i in range(len(positivetable)):
+    '''for i in range(len(positivetable)):
         #idnum = positivetable.iloc[i]['id']
         text = positivetable.iloc[i]['text']
         text = text.lower()
@@ -80,7 +83,7 @@ def sentimentcalculator(sentences, reviews):
         if len(positivevals) == 3 or i == len(positivetable):
             break
         if testdata[testdata['text'].str.contains(text)]['polarity'].iloc[0] > 0:
-            positivevals.append(text)
+            positivevals.append(text)'''
 
         #print(testdata[testdata['text'].str.contains(text)]['polarity'].iloc[i])
         #print(testdata['text'])

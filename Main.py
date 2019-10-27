@@ -6,7 +6,6 @@ from scraper import *
 import sys
 
 def Main():
-
 	query = sys.argv[1]
 	print(query)
    	
