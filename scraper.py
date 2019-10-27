@@ -198,7 +198,7 @@ def findQuery(query):
     return productId
 
 print("start")
-p = findQuery("hydroflask")
+p = findQuery("airpods")
 print("found")
 scrape(p)
 
