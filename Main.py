@@ -1,18 +1,33 @@
 
-from .Test import textprocessor
-from .textProcessing import *
+# from Test import *
+from TextProcessing import *
+from Sentiment import *
+from scraper import *
+import sys
 
 def Main():
-    #scraping the reviews goes here, goes into a list with each review as its own entry
-    reviews = ...
-    words, sents = preprocess_text(reviews)
+	query = sys.argv[1]
 
-    ldamodel, worddic = create_topic_model(words)
+	reviews = grabReviews(scrape(findQuery(query)))
 
-    keywords = extract_keywords(ldamodel, worddic)
+	words, sents = preprocess_text(reviews)
+	
+	ldamodel, worddic = create_topic_model(words)
+	
+	keywords = extract_keywords(ldamodel, worddic)
+	
+	sentencestocheck = find_keyword_contexts(sents, keywords)
+	
+	finalsentences = sentimentcalculator(sentencestocheck, reviews)
 
-    sentencestocheck = find_keyword_contexts(sents, keywords)
+	concatenated = ""
+	for sentence in finalsentences:
+		concatenated += sentence + " "
+	
+	print(concatenated)
 
-    finalsentences = sentimentcalculator(sentencestocheck, reviews)
+	return concatenated
 
-    textprocessed = textprocessor()
+    # textprocessed = textprocessor()
+
+Main()

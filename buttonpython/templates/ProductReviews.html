@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<title>Product Review Search</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'ProductReviews.css' %}"> -->
+<link rel="stylesheet" href="ProductReviews.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
+<body>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()"
+  class="w3-bar-item w3-button">Close Sidebar</a>
+  <a href="#product" onclick="w3_close()" class="w3-bar-item w3-button">Product Previews</a>
+  <a href="#product-search" onclick="w3_close()" class="w3-bar-item w3-button">Product Search</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
+</nav>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+    <div class="w3-center w3-padding-16">Amazon Product Reviews</div>
+  </div>
+</div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="product">
+    <div class="w3-third">
+      <img src="https://m.media-amazon.com/images/G/01/img15/brawner/AirPods_ChargingCase_newmodel_240x160._CB467726116_.png" alt="Airpods" style="width:50%;height:170px">
+      <br>
+      <a href="https://www.amazon.com/Apple-AirPods-Charging-Latest-Model/dp/B07PXGQC1Q/ref=cm_cr_arp_d_product_top?ie=UTF8">Apple AirPods with Charging Case (Latest Model)</a>
+      <p>List Price: $159.00</p>
+      <a href="AirpodReview.html">Click here to see review summary</a>
+    </div>
+    <div class="w3-third">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/71YO8XbxJYL._AC_UY695_.jpg" alt="Adidas Shoes" style="width:70%;height:150px">
+      <br>
+      <a href="https://www.amazon.com/adidas-Mens-Grand-Court-White/dp/B07D9L15L5/ref=sr_1_5?dchild=1&keywords=shoes&psc=1&qid=1572154342&sr=8-5">Adidas Men's Grand Court Sneaker</a>
+      <p>List Price: $65.00</p>
+      <a href="ShoeReview.html">Click here to see review summary</a>
+    </div>
+    <div class="w3-third">
+      <img src="https://images-na.ssl-images-amazon.com/images/I/61tamfQDu4L._AC_SL1500_.jpg" alt="Hydroflask" style="width:15%;height:150px">
+      <br>
+      <a href="https://www.amazon.com/gp/slredirect/picassoRedirect.html/ref=pa_sp_atf_aps_sr_pg1_1?ie=UTF8&adId=A05953961YKVZNG9G24DO&url=%2FHydro-Flask-Insulated-Stainless-32-Ounce%2Fdp%2FB01GW2H09S%2Fref%3Dsr_1_1_sspa%3Fkeywords%3Dhydroflask%26qid%3D1572154553%26sr%3D8-1-spons%26psc%3D1&qualifier=1572154553&id=7199735617454785&widgetName=sp_atf">Hydro Flask Wide Mouth Water Bottle, Straw Lid - Multiple Sizes & Colors</a>
+      <p>List Price: $44.95</p>
+      <a href="HydroflaskReview.html">Click here to see review summary</a>
+    </div>
+  </div>
+
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <p> Couldn't find what you were looking for? Scroll down to search for any product review!</p>
+    </div>
+  </div>
+
+  <hr id="product-search">
+
+  <!-- Product Search Section onclick="runSearch(document.getElementById('searchEntry').value)"-->
+  <div class="w3-container w3-padding-16 w3-center">
+    <h4>Search For A Product</h4><br>
+    <div class="w3-padding-small">
+      <!-- <input type="text" class="w3-row-padding w3-center" id="searchEntry" placeholder="Search here...">
+      <button type="button" onclick="location.href='{% url 'searchScript' %}'" >Find Product</button>
+      {% if data %}
+
+      {{data | safe}}
+
+      {% endif %} -->
+
+
+      <form action="/external/" method="post">
+        {% csrf_token %}
+        Search here:
+        <input type="text" name="query" required>
+        <input type="submit" name="Run Query">
+      </form>
+
+      <br><br>{{data_external | safe}}<br><br>
+
+    </div>
+  </div>
+
+
+  <hr id="about">
+
+  <!-- About Section -->
+  <div class="w3-container w3-center">
+    <h3>About The Project</h3><br>
+      <p>As consumers, we all want to be fully informed about products before we purchase them, but this process can be quite time consuming and difficult to gain accurate information at times. Our goal was to streamline this process through developing a smart query that utilizes NLP techniques and data mining to quickly process and summarize product reviews for users.</p>
+  </div>
+  <br><br><br>
+
+
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-third">
+      <h3>FOOTER</h3>
+      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+
+    <div class="w3-third">
+      <h3>BLOG POSTS</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Lorem</span><br>
+          <span>Sed mattis nunc</span>
+        </li>
+        <li class="w3-padding-16">
+          <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Ipsum</span><br>
+          <span>Praes tinci sed</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-serif">
+      <h3>POPULAR TAGS</h3>
+      <p>
+        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
+      </p>
+    </div>
+  </footer>
+
+<!-- End page content -->
+</div>
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+// Script to open and close sidebar
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+
+// Function to run python script for query
+function runSearch(query){
+    $.ajax({
+      url: "Main.py",
+     context: document.body
+    }).done(function() {
+     alert('finished python script');;
+    });
+}
+</script>
+
+</body>
+</html>
