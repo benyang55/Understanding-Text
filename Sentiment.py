@@ -52,12 +52,8 @@ def sentimentcalculator():
 
     testdatasplit = testdatasplit.join(merged)
 
-    print(testdatasplit)
-
-
     #for the whole thing
-    #print(testdata)'''
-    #print(testdata)
+
     temp = testdata['text'].str.split(expand = True).stack().reset_index(level = 1)
     tidy_format = temp.rename(columns = {"level_1" : "num", 0 : "word"})
     tidy_format = tidy_format.reset_index(level = 0)
@@ -67,8 +63,31 @@ def sentimentcalculator():
     merged = merged.drop(['num'], axis = 1)
 
     testdata = testdata.join(merged)
-    #print(testdata)
-#
+
+
+    #top 3 negative sentences
+
+    #print(testdatasplit.columns)
+    negativetable = testdatasplit.sort_values(by = 'polarity', ascending = True)
+    negativevals = []
+    negativevals.append(negativetable.iloc[0]['text'])
+    negativevals.append(negativetable.iloc[1]['text'])
+    negativevals.append(negativetable.iloc[2]['text'])
+
+
+
+    #top 3 positive after checking for overall score
+    positivetable = testdatasplit.sort_values(by = 'polarity', ascending = False)
+    positivevals = []
+    #print(positivetable)
+    for i in range(len(positivetable)):
+        idnum = positivetable.iloc[i]['id']
+        if testdata.loc[idnum, 'polarity'] >0:
+            positivevals.append(positivetable.iloc[i]['text'])
+        if len(positivevals) == 3:
+            break;
+    negativevals.append(positivevals)
+    return negativevals
 
 
 sentimentcalculator()
