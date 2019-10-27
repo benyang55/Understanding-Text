@@ -1,1 +1,5 @@
-from textProcessing import preprocess_text, create_topic_model
+
+from .Test import textprocessor
+
+def Main():
+    textprocessed = textprocessor()
