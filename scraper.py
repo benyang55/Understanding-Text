@@ -52,7 +52,7 @@ def get_header(asin):
         response = get(amazon_url, headers=headers, verify=False, timeout=30)
         cleaned_response = response.text.replace('\x00', '')
         parser_to_html = html.fromstring(cleaned_response)
-        data = {'number_reviews': ''.join(parser_to_html.xpath('.//span[@data-hook="total-review-count"]//text()')).replace(',', ''),
+        data = {'number_reviews': ''.join(parser_to_html.xpath('.//span[@data-hook="cr-filter-info-review-count"]//text()')).replace(',', ''),
                 'product_price': ''.join(parser_to_html.xpath('.//span[contains(@class,"a-color-price arp-price")]//text()')).strip(),
                 'product_name': ''.join(parser_to_html.xpath('.//a[@data-hook="product-link"]//text()')).strip(),
                 'total_ratings': parser_to_html.xpath('//table[@id="histogramTable"]//tr')}
@@ -64,19 +64,22 @@ def get_header(asin):
                 if rating_key:
                     ratings_dict.update({rating_key: rating_value})
 
+        parsed = data['number_reviews'].split(" ")
+        for i in range(len(parsed)):
+            if parsed[i].isdigit():
+                data['number_reviews'] = int(parsed[i])
+                break
+        
         number_page_reviews = 0
-        if len(data['number_reviews']) > 0 and type(data['number_reviews']) == int:
-            number_page_reviews = int(int(data['number_reviews']) / 10)
-
+        if type(data['number_reviews']) == int:
+            number_page_reviews = int(data['number_reviews'] / 10)
             if number_page_reviews % 2 == 0:
                 number_page_reviews += 1
             else:
                 number_page_reviews += 2
-        print("#1")
         return data['product_price'], data['product_name'],\
                data['number_reviews'], ratings_dict, number_page_reviews, headers
     except Exception as e:
-        print(e)
         return {"url": amazon_url, "error": e}
 
 
@@ -136,6 +139,11 @@ def get_all_reviews(asin):
     global review_total_pages
     url_list = []
     product_price, product_name, number_reviews, ratings_dict, stop_loop_for, headers = get_header(asin)
+    # print(product_price)
+    # print(product_name)
+    # print(number_reviews)
+    # print(ratings_dict)
+    # print(stop_loop_for)
     for page_number in range(1, stop_loop_for):
         amazon_url = 'https://www.amazon.com/product-reviews/' + \
                      asin + \
@@ -157,9 +165,9 @@ def get_all_reviews(asin):
     }
     return response
 
-def core():
+def scrape(productId):
     try:
-        data = {'asin_list': ['B00JD242MS','B000LL0R8I'],
+        data = {'asin_list': [productId],
                 'format': 'csv'}
         if data['format'] == 'csv':
             for asin in data['asin_list']:
@@ -178,6 +186,19 @@ def core():
     except Exception as e:
         return f'Error: {e}'
 
+def findQuery(query):
+    amazon_url = "https://amazon.com/s?k=" + query
+    headers = {'User-Agent': get_random_user_agent()}
+    urllib3.disable_warnings()
+    response = get(amazon_url, headers=headers, verify=False, timeout=30)
+    cleaned_response = response.text.replace('\x00', '')
+    parser_to_html = html.fromstring(cleaned_response)
+    productId = parser_to_html.xpath('//div[@class="s-result-list s-search-results sg-row"]')[0].xpath('./div/@data-asin')[0]
+    print(productId)
+    return productId
 
-if __name__ == '__main__':
-    core()
+print("start")
+p = findQuery("hydroflask")
+print("found")
+scrape(p)
+
