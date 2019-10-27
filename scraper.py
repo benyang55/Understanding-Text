@@ -7,6 +7,7 @@ from json import loads, dump
 from requests import get
 from dateutil import parser as dateparser_to_html
 import concurrent.futures
+import pandas as pd
 
 
 #GLOBAL VARIABLES
@@ -169,20 +170,24 @@ def scrape(productId):
     try:
         data = {'asin_list': [productId],
                 'format': 'csv'}
+        files = []
         if data['format'] == 'csv':
             for asin in data['asin_list']:
-                print(f"IN PROCESS FOR: {asin}")
+                # print(f"IN PROCESS FOR: {asin}")
                 response = get_all_reviews(asin)
                 parse_json_to_csv(asin, response)
+                files.append("%s.csv" % asin)
         else:
             for asin in data['asin_list']:
-                print(f"IN PROCESS FOR: {asin}")
+                # print(f"IN PROCESS FOR: {asin}")
                 temp = get_all_reviews(asin)
                 f = open(asin + '.json', 'w')
                 dump(temp, f, indent=4)
                 f.close()
+                files.append("%s.csv" % asin)
+        return files
 
-        return f'Success download {data["format"]} file in root directory'
+        # return f'Success download {data["format"]} file in root directory'
     except Exception as e:
         return f'Error: {e}'
 
@@ -194,11 +199,20 @@ def findQuery(query):
     cleaned_response = response.text.replace('\x00', '')
     parser_to_html = html.fromstring(cleaned_response)
     productId = parser_to_html.xpath('//div[@class="s-result-list s-search-results sg-row"]')[0].xpath('./div/@data-asin')[0]
-    print(productId)
+    # print(productId)
     return productId
 
-print("start")
-p = findQuery("airpods")
-print("found")
-scrape(p)
+
+def grabReviews(filepath):
+    reviews = []
+    for file in filepath:
+        table = pd.read_csv(file, names=['review_text', 'review_date', 'a', 'am', 'dfs'])
+        reviews.extend(list(table['review_text']))
+    return reviews
+
+
+# p = findQuery("airpods")
+# filepaths = scrape(p)
+# print(product_info['product_name'])
+
 
