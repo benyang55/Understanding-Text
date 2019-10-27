@@ -4,7 +4,7 @@ from .textProcessing import *
 
 def Main():
     #scraping the reviews goes here, goes into a list with each review as its own entry
-    reviews = ...
+    '''reviews = ...
     words, sents = preprocess_text(reviews)
 
     ldamodel, worddic = create_topic_model(words)
@@ -15,4 +15,8 @@ def Main():
 
     finalsentences = sentimentcalculator(sentencestocheck, reviews)
 
-    textprocessed = textprocessor()
+    textprocessed = textprocessor()'''
+    print(123)
+    return 123
+
+print(1234)
